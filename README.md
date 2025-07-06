@@ -26,7 +26,7 @@ This project is a workshop for pycon Colombia 2025 and performs comprehensive lo
 #### 1. Clone and Navigate to Project
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/diegovivas/performance_db_workshop
 cd performance_db_workshop
 ```
 
