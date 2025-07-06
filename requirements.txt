@@ -1,0 +1,12 @@
+locust
+cassandra-driver
+psycopg2-binary
+python-dotenv
+
+# Data Analysis and Visualization for DB Comparison
+pandas>=1.5.0
+numpy>=1.21.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+plotly>=5.15.0
+pathlib2>=2.3.7

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  scylla:
+    image: scylladb/scylla:5.4
+    container_name: scylla_db
+    ports:
+      - "9042:9042"   # CQL port
+      - "9160:9160"   # Thrift port
+    volumes:
+      - scylla_data:/var/lib/scylla
+    environment:
+      - SCYLLA_CLUSTER_NAME=TestCluster
+    command: --seeds=scylla_db --smp 2 --memory 4G --overprovisioned 0 --api-address 0.0.0.0 --reserve-memory=1G
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'describe cluster'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: testdb
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  scylla_data:
+  postgres_data: 
