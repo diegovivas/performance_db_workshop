@@ -26,6 +26,13 @@ services:
       POSTGRES_PASSWORD: testpass
       POSTGRES_DB: testdb
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      # PostgreSQL configuration for containerized environments
+      POSTGRES_CONF_shared_preload_libraries: "pg_stat_statements"
+      POSTGRES_CONF_shared_buffers: "1GB"
+      POSTGRES_CONF_effective_cache_size: "3GB"
+      POSTGRES_CONF_work_mem: "64MB"
+      POSTGRES_CONF_maintenance_work_mem: "256MB"
+      POSTGRES_CONF_max_connections: "100"
     ports:
       - "5432:5432"
     volumes:
@@ -38,4 +45,4 @@ services:
 
 volumes:
   scylla_data:
-  postgres_data: 
+  postgres_data:
